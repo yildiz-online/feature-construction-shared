@@ -31,7 +31,7 @@ import be.yildiz.common.framelistener.FrameManager;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildizgames.engine.feature.construction.ConstructionQueue.EntityRepresentationConstruction;
-import be.yildizgames.engine.feature.entity.module.ModuleGroup;
+import be.yildizgames.engine.feature.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +42,6 @@ import java.util.stream.Collectors;
 
 /**
  * Check all builder List and execute their build method. Primary task is Call all builder to create their units, if they don't have anything to create, they are removed from the builder list.
- * @param <T> Entity implementation.
  * @author Grégory Van den Borre
  */
 public class ConstructionManager extends EndFrameListener implements CompleteConstructionManager {
@@ -63,7 +62,7 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
      * Listener to notify when a construction is completed.
      */
     private final Set<ConstructionListener> listenerList = Sets.newInsertionOrderedSet();
-    private final EntityCreator<T> creator;
+    private final EntityCreator creator;
     private List<EntityToCreate> entityToCreateList = Lists.newList();
 
     /**
@@ -72,7 +71,7 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
      * @param factory Entity factory to materialize entities.
      * @param creator The class creating the entities in the system.
      */
-    public ConstructionManager(FrameManager frame, EntityFactory factory, EntityCreator<T> creator) {
+    public ConstructionManager(FrameManager frame, EntityFactory factory, EntityCreator creator) {
         super();
         this.associatedFactory = factory;
         this.creator = creator;
@@ -81,14 +80,14 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
 
     @Override
     public void createEntity(final EntityInConstruction entity, final EntityId builderId, final int index) {
-        T buildEntity = this.associatedFactory.createEntity(entity);
+        Entity buildEntity = this.associatedFactory.createEntity(entity);
         LOGGER.debug("Entity built " + entity.getId());
-        this.listenerList.forEach(l -> l.entityComplete(buildEntity, builderId, index));
+        this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), builderId, index));
     }
 
     @Override
     public void createEntity(final DefaultEntityInConstruction entity, final EntityId builderId, final EntityRepresentationConstruction c) {
-        WaitingEntity data = new WaitingEntity<ModuleGroup>(entity, c, builderId);
+        WaitingEntity data = new WaitingEntity<>(entity, c, builderId);
         this.entityToBuildList.add(data);
         this.listenerList.forEach(l -> l.addEntityToCreate(data));
     }
@@ -116,9 +115,9 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
             WaitingEntity waitingEntity = this.entityToBuildList.get(i);
             waitingEntity.representation.reduceTimeLeft(time);
             if (waitingEntity.representation.isTimeElapsed()) {
-                T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
+                Entity buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
                 LOGGER.debug("Entity built " + waitingEntity.entity.getId());
-                this.listenerList.forEach(l -> l.entityComplete(buildEntity, waitingEntity.builderId, waitingEntity.representation.index));
+                this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), waitingEntity.builderId, waitingEntity.representation.index));
                 this.entityToBuildList.remove(i);
                 i--;
             }
@@ -131,7 +130,7 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
     }
 
     @Override
-    public void willNotify(final ConstructionListener<T>... listeners) {
+    public void willNotify(final ConstructionListener... listeners) {
         if (listeners != null) {
             Collections.addAll(this.listenerList, listeners);
         }
@@ -142,7 +141,7 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
      *
      * @param listener Listener to remove.
      */
-    public void removeListener(final ConstructionListener<T> listener) {
+    public void removeListener(final ConstructionListener listener) {
         this.listenerList.remove(listener);
     }
 

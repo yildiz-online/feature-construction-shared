@@ -25,7 +25,7 @@
 package be.yildizgames.engine.feature.construction;
 
 import be.yildiz.common.id.EntityId;
-import be.yildiz.shared.entity.EntityInConstruction;
+import be.yildizgames.engine.feature.entity.EntityInConstruction;
 
 /**
  * An entity construction manager will build entities, once the process is done, the listeners are notified.

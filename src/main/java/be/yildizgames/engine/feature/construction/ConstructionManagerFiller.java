@@ -27,7 +27,7 @@ package be.yildizgames.engine.feature.construction;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.shared.entity.EntityToCreate;
+import be.yildizgames.engine.feature.entity.EntityToCreate;
 
 import java.util.Optional;
 
@@ -46,7 +46,7 @@ public class ConstructionManagerFiller implements ConstructionQueueListener {
      * Create a new instance filler.
      * @param manager Manager responsible to build entities.
      */
-    public ConstructionManagerFiller(ConstructionManager<T> manager) {
+    public ConstructionManagerFiller(ConstructionManager manager) {
         super();
         this.manager = manager;
     }
@@ -62,7 +62,7 @@ public class ConstructionManagerFiller implements ConstructionQueueListener {
         builder.ifPresent(b -> {
             EntityToCreate etc = new EntityToCreate(
                     toBuild.type,
-                    toBuild.data,
+                    //toBuild.data,
                     b.getBuildPosition(),
                     Point3D.BASE_DIRECTION,
                     p);

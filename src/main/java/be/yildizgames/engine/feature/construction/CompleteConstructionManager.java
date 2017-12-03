@@ -26,15 +26,14 @@ package be.yildizgames.engine.feature.construction;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.shared.entity.DefaultEntityInConstruction;
-import be.yildiz.shared.entity.EntityToCreate;
 import be.yildizgames.engine.feature.construction.ConstructionQueue.EntityRepresentationConstruction;
+import be.yildizgames.engine.feature.entity.DefaultEntityInConstruction;
+import be.yildizgames.engine.feature.entity.EntityToCreate;
 
 import java.util.List;
 
 /**
  *
- * @param <T> Entity implementation.
  * @author Grégory Van den Borre
  */
 public interface CompleteConstructionManager extends SimpleConstructionManager {

@@ -24,9 +24,10 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildiz.shared.entity.DefaultEntityInConstruction;
-import be.yildiz.shared.entity.Entity;
-import be.yildiz.shared.entity.EntityInConstruction;
+
+import be.yildizgames.engine.feature.entity.DefaultEntityInConstruction;
+import be.yildizgames.engine.feature.entity.Entity;
+import be.yildizgames.engine.feature.entity.EntityInConstruction;
 
 /**
  * Factory to build entities.

@@ -27,8 +27,8 @@ package be.yildizgames.engine.feature.construction;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildiz.shared.entity.Entity;
 import be.yildizgames.engine.feature.construction.ConstructionQueue.EntityRepresentationConstruction;
+import be.yildizgames.engine.feature.entity.Entity;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +39,7 @@ import java.util.Optional;
  * @param <T> Entity implementation in the queues.
  * @author Grégory Van den Borre
  */
-public class ConstructionQueueManager<T extends Entity> implements ConstructionListener<T> {
+public class ConstructionQueueManager<T extends Entity> implements ConstructionListener {
 
     /**
      * Listeners to notify when a queue state changes.
