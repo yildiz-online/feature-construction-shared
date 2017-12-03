@@ -28,7 +28,6 @@ import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildizgames.engine.feature.construction.ConstructionQueue.EntityRepresentationConstruction;
-import be.yildizgames.engine.feature.entity.Entity;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,10 +35,9 @@ import java.util.Optional;
 /**
  * Manage the different construction queues.
  *
- * @param <T> Entity implementation in the queues.
  * @author Grégory Van den Borre
  */
-public class ConstructionQueueManager<T extends Entity> implements ConstructionListener {
+public class ConstructionQueueManager implements ConstructionListener {
 
     /**
      * Listeners to notify when a queue state changes.
@@ -51,7 +49,7 @@ public class ConstructionQueueManager<T extends Entity> implements ConstructionL
      * Manage the builders.
      */
     //@Invariant("builderManager != null")
-    private final BuilderManager builderManager;
+    private final BuilderManager<QueueBuilder> builderManager;
 
     /**
      * Create a new instance.
@@ -59,7 +57,7 @@ public class ConstructionQueueManager<T extends Entity> implements ConstructionL
      * @param builderManager Associated builder manager.
      * @throws NullPointerException If builderManager is null.
      */
-    public ConstructionQueueManager(final BuilderManager builderManager) {
+    public ConstructionQueueManager(final BuilderManager<QueueBuilder> builderManager) {
         super();
         assert builderManager != null;
         this.builderManager = builderManager;
@@ -83,14 +81,14 @@ public class ConstructionQueueManager<T extends Entity> implements ConstructionL
      * @param index    Index of the construction.
      */
     public void cancel(final PlayerId playerId, final int index) {
-        List<Builder> builders = builderManager.getBuilderByPlayer(playerId);
+        List<QueueBuilder> builders = builderManager.getBuilderByPlayer(playerId);
         builders.forEach(b -> b.cancel(index));
-        /**for (Builder b : builders) {
+        /*for (Builder b : builders) {
             if (b.getQueue().remove(index)) {
                 listeners.forEach(l -> l.notify(b.getQueue()));
                 break;
             }
-        }**/
+        }*/
     }
 
     /**
@@ -101,7 +99,7 @@ public class ConstructionQueueManager<T extends Entity> implements ConstructionL
      * @throws NullPointerException if items is null.
      */
     public void update(final ConstructionQueue items) {
-        Optional<Builder> builder = this.builderManager.getBuilderById(items.getBuilderId());
+        Optional<QueueBuilder> builder = this.builderManager.getBuilderById(items.getBuilderId());
         builder.ifPresent(
                 b -> {
                     b.setQueue(items.getList());
@@ -118,7 +116,7 @@ public class ConstructionQueueManager<T extends Entity> implements ConstructionL
      * @param toBuild Data of the entity to build.
      */
     public void addEntity(final PlayerId playerId, final EntityId builderId, final EntityRepresentationConstruction toBuild) {
-        Optional<Builder> builder = this.builderManager.getBuilderById(builderId);
+        Optional<QueueBuilder> builder = this.builderManager.getBuilderById(builderId);
         builder.ifPresent(
                 b -> {
                     b.addInQueue(toBuild);
@@ -131,7 +129,7 @@ public class ConstructionQueueManager<T extends Entity> implements ConstructionL
     }
 
     @Override
-    public void entityComplete(final T entity, final EntityId builder, final int index) {
+    public void entityComplete(final EntityId entity, final EntityId builder, final int index) {
         if (builder.equals(EntityId.WORLD)) {
             return;
         }
@@ -139,7 +137,7 @@ public class ConstructionQueueManager<T extends Entity> implements ConstructionL
             b.removeFromQueue(index);
             if (!b.getQueue().isEmpty()) {
                 EntityRepresentationConstruction nextToBuild = b.getQueue().getList().get(0);
-                listeners.forEach(l -> l.add(nextToBuild, entity.getOwner(), builder));
+                listeners.forEach(l -> l.add(nextToBuild, b.getOwner(), builder));
             }
             listeners.forEach(l -> l.notify(b.getQueue()));
         });

@@ -38,19 +38,19 @@ import java.util.Optional;
  * Keep track of all existing builders.
  * @author Grégory Van den Borre
  */
-public class BuilderManager {
+public class BuilderManager<B extends Builder> {
 
     private static final BuilderManager INSTANCE = new BuilderManager();
 
     /**
      * List of builder by their id.
      */
-    private final Map<EntityId, Builder> builderList = Maps.newMap();
+    private final Map<EntityId, B> builderList = Maps.newMap();
 
     /**
      * List of all builders for a given player.
      */
-    private final Map<PlayerId, List<Builder>> buildersByPlayer = Maps.newMap();
+    private final Map<PlayerId, List<B>> buildersByPlayer = Maps.newMap();
 
     private BuilderManager() {
         super();
@@ -66,7 +66,7 @@ public class BuilderManager {
      * @return The builder matching the given id.
      */
     //@Ensures("result != null")
-    public Optional<Builder> getBuilderById(final EntityId builderId) {
+    public Optional<B> getBuilderById(final EntityId builderId) {
         return Optional.ofNullable(this.builderList.get(builderId));
     }
 
@@ -74,7 +74,7 @@ public class BuilderManager {
      * Register a new builder.
      * @param builder Builder to register.
      */
-    public void addBuilder(final Builder builder) {
+    public void addBuilder(final B builder) {
         this.builderList.put(builder.getBuilderId(), builder);
         if (!this.buildersByPlayer.containsKey(builder.getOwner())) {
             this.buildersByPlayer.put(builder.getOwner(), Lists.newList());
@@ -89,7 +89,7 @@ public class BuilderManager {
      * @return the list of builders for a player.
      */
     //@Ensures("result != null")
-    public List<Builder> getBuilderByPlayer(final PlayerId player) {
+    public List<B> getBuilderByPlayer(final PlayerId player) {
         assert player != null;
         return Collections.unmodifiableList(this.buildersByPlayer.getOrDefault(player, Collections.emptyList()));
     }

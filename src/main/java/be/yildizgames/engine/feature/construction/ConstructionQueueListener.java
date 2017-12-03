@@ -42,7 +42,7 @@ public interface ConstructionQueueListener {
 
     /**
      * Notify when a new request is added to the queue.
-     * @param toBuild Construction be.yildizgames.engine.feature.entity.data/
+     * @param toBuild Construction data.
      * @param playerId Id of the player requesting the build.
      * @param builderId Id of the entity building this entity.
      */
