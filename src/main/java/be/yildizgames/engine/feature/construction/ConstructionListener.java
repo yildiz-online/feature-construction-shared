@@ -25,10 +25,11 @@
 package be.yildizgames.engine.feature.construction;
 
 import be.yildiz.common.id.EntityId;
+import be.yildiz.common.id.PlayerId;
+import be.yildizgames.engine.feature.entity.data.EntityType;
 
 /**
  * To call when a building task is completed.
- * @param <T> Entity implementation.
  *
  * @author Grégory Van den Borre
  */
@@ -41,11 +42,10 @@ public interface ConstructionListener {
     /**
      * Provide the newly created Entity and its builder Id.
      *
-     * @param entity  New Entity.
      * @param builder Id of the builder of the entity.
      * @param request An index to retrieve an entity against a request.
      */
-    default void entityComplete(EntityId Id, EntityId builder, int request) {
+    default void entityComplete(EntityId Id, PlayerId owner, EntityType type, EntityId builder, int request) {
     }
 
     default void entityConstructionCanceled(WaitingEntity e) {
