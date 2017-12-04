@@ -82,7 +82,7 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
     public void createEntity(final EntityInConstruction entity, final EntityId builderId, final int index) {
         Entity buildEntity = this.associatedFactory.createEntity(entity);
         LOGGER.debug("Entity built " + entity.getId());
-        this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), builderId, index));
+        this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), buildEntity.getOwner(), buildEntity.getType(), builderId, index));
     }
 
     @Override
@@ -117,7 +117,7 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
             if (waitingEntity.representation.isTimeElapsed()) {
                 Entity buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
                 LOGGER.debug("Entity built " + waitingEntity.entity.getId());
-                this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), waitingEntity.builderId, waitingEntity.representation.index));
+                this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), buildEntity.getOwner(), buildEntity.getType(), waitingEntity.builderId, waitingEntity.representation.index));
                 this.entityToBuildList.remove(i);
                 i--;
             }
