@@ -28,6 +28,7 @@ import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildizgames.engine.feature.construction.ConstructionQueue.EntityRepresentationConstruction;
+import be.yildizgames.engine.feature.entity.data.EntityType;
 
 import java.util.List;
 import java.util.Optional;
@@ -129,7 +130,7 @@ public class ConstructionQueueManager implements ConstructionListener {
     }
 
     @Override
-    public void entityComplete(final EntityId entity, final EntityId builder, final int index) {
+    public void entityComplete(final EntityId entity, PlayerId owner, EntityType type, final EntityId builder, final int index) {
         if (builder.equals(EntityId.WORLD)) {
             return;
         }
