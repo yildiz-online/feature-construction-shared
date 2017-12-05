@@ -24,10 +24,8 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildizgames.engine.feature.construction.ConstructionQueue.EntityRepresentationConstruction;
-import be.yildizgames.engine.feature.entity.DefaultEntityInConstruction;
+import be.yildizgames.engine.feature.entity.EntityInConstruction;
 import be.yildizgames.engine.feature.entity.EntityToCreate;
 
 import java.util.List;
@@ -36,7 +34,7 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public interface CompleteConstructionManager extends SimpleConstructionManager {
+public interface CompleteConstructionManager <E extends EntityInConstruction> extends SimpleConstructionManager<E> {
 
     void createEntity(EntityToCreate entity);
 
@@ -47,15 +45,6 @@ public interface CompleteConstructionManager extends SimpleConstructionManager {
      */
     //@Requires w != null
     void cancel(WaitingEntity w);
-
-    /**
-     * Add a entity to build in the builder list.
-     *
-     * @param eic  Data to build the Entity.
-     * @param builderId Id of the building or entity creating this entity.
-     * @param c Metadata about the construction current status.
-     */
-    void createEntity(DefaultEntityInConstruction eic, EntityId builderId, EntityRepresentationConstruction c);
 
     /**
      * @return The list of entities in the building queue.

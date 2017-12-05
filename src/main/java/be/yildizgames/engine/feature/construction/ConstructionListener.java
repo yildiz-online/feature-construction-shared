@@ -42,10 +42,13 @@ public interface ConstructionListener {
     /**
      * Provide the newly created Entity and its builder Id.
      *
+     * @param id Id of the built entity.
+     * @param owner Id of the owner of the built entity.
+     * @param type Type of the built entity.
      * @param builder Id of the builder of the entity.
      * @param request An index to retrieve an entity against a request.
      */
-    default void entityComplete(EntityId Id, PlayerId owner, EntityType type, EntityId builder, int request) {
+    default void entityComplete(EntityId id, PlayerId owner, EntityType type, EntityId builder, int request) {
     }
 
     default void entityConstructionCanceled(WaitingEntity e) {

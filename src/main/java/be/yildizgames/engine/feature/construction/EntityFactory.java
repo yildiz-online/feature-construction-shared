@@ -25,7 +25,6 @@
 package be.yildizgames.engine.feature.construction;
 
 
-import be.yildizgames.engine.feature.entity.DefaultEntityInConstruction;
 import be.yildizgames.engine.feature.entity.Entity;
 import be.yildizgames.engine.feature.entity.EntityInConstruction;
 
@@ -34,7 +33,7 @@ import be.yildizgames.engine.feature.entity.EntityInConstruction;
  *
  * @author Grégory Van den Borre
  */
-public interface EntityFactory<T extends Entity> {
+public interface EntityFactory<T extends Entity, E extends EntityInConstruction> {
 
     /**
      * Create a new materialized entity from an entity template.
@@ -44,16 +43,5 @@ public interface EntityFactory<T extends Entity> {
      * @throws NullPointerException If the parameter is null.
      */
     //@Ensures result != null.
-    T createEntity(EntityInConstruction e);
-
-    /**
-     * Create a new materialized entity from an entity template.
-     *
-     * @param e Entity template.
-     * @return The created entity.
-     * @throws NullPointerException If the parameter is null.
-     */
-    //@Ensures result != null.
-    T createEntity(DefaultEntityInConstruction e);
-
+    T createEntity(E e);
 }

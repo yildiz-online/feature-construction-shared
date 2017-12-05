@@ -30,8 +30,10 @@ import be.yildiz.common.framelistener.EndFrameListener;
 import be.yildiz.common.framelistener.FrameManager;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildizgames.engine.feature.construction.ConstructionQueue.EntityRepresentationConstruction;
-import be.yildizgames.engine.feature.entity.*;
+import be.yildizgames.engine.feature.entity.Entity;
+import be.yildizgames.engine.feature.entity.EntityCreator;
+import be.yildizgames.engine.feature.entity.EntityInConstruction;
+import be.yildizgames.engine.feature.entity.EntityToCreate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,25 +46,27 @@ import java.util.stream.Collectors;
  * Check all builder List and execute their build method. Primary task is Call all builder to create their units, if they don't have anything to create, they are removed from the builder list.
  * @author Grégory Van den Borre
  */
-public class ConstructionManager extends EndFrameListener implements CompleteConstructionManager {
+public class ConstructionManager<T extends Entity, E extends EntityInConstruction, D> extends EndFrameListener implements CompleteConstructionManager<E> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConstructionManager.class);
 
     /**
      * List of entities waiting to be build.
      */
-    private final List<WaitingEntity> entityToBuildList = Lists.newList();
+    private final List<WaitingEntity<D, E>> entityToBuildList = Lists.newList();
 
     /**
      * Factory to build the entities.
      */
-    private final EntityFactory associatedFactory;
+    private final EntityFactory<T, E> associatedFactory;
 
     /**
      * Listener to notify when a construction is completed.
      */
     private final Set<ConstructionListener> listenerList = Sets.newInsertionOrderedSet();
+
     private final EntityCreator creator;
+
     private List<EntityToCreate> entityToCreateList = Lists.newList();
 
     /**
@@ -71,7 +75,7 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
      * @param factory Entity factory to materialize entities.
      * @param creator The class creating the entities in the system.
      */
-    public ConstructionManager(FrameManager frame, EntityFactory factory, EntityCreator creator) {
+    public ConstructionManager(FrameManager frame, EntityFactory<T, E> factory, EntityCreator creator) {
         super();
         this.associatedFactory = factory;
         this.creator = creator;
@@ -79,17 +83,10 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
     }
 
     @Override
-    public void createEntity(final EntityInConstruction entity, final EntityId builderId, final int index) {
-        Entity buildEntity = this.associatedFactory.createEntity(entity);
+    public void createEntity(final E entity, final EntityId builderId, final int index) {
+        T buildEntity = this.associatedFactory.createEntity(entity);
         LOGGER.debug("Entity built " + entity.getId());
         this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), buildEntity.getOwner(), buildEntity.getType(), builderId, index));
-    }
-
-    @Override
-    public void createEntity(final DefaultEntityInConstruction entity, final EntityId builderId, final EntityRepresentationConstruction c) {
-        WaitingEntity data = new WaitingEntity<>(entity, c, builderId);
-        this.entityToBuildList.add(data);
-        this.listenerList.forEach(l -> l.addEntityToCreate(data));
     }
 
     @Override
@@ -112,10 +109,10 @@ public class ConstructionManager extends EndFrameListener implements CompleteCon
     @Override
     public boolean frameEnded(final long time) {
         for (int i = 0; i < this.entityToBuildList.size(); i++) {
-            WaitingEntity waitingEntity = this.entityToBuildList.get(i);
+            WaitingEntity<D, E> waitingEntity = this.entityToBuildList.get(i);
             waitingEntity.representation.reduceTimeLeft(time);
             if (waitingEntity.representation.isTimeElapsed()) {
-                Entity buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
+                T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
                 LOGGER.debug("Entity built " + waitingEntity.entity.getId());
                 this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), buildEntity.getOwner(), buildEntity.getType(), waitingEntity.builderId, waitingEntity.representation.index));
                 this.entityToBuildList.remove(i);

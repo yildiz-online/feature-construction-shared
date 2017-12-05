@@ -26,19 +26,19 @@ package be.yildizgames.engine.feature.construction;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildizgames.engine.feature.entity.DefaultEntityInConstruction;
+import be.yildizgames.engine.feature.entity.EntityInConstruction;
 
 /**
  * Class with entity data and building time.
  *
  * @author Grégory Van den Borre
  */
-public final class WaitingEntity<D> {
+public final class WaitingEntity<D, E extends EntityInConstruction> {
 
     /**
      * The entity to build data.
      */
-    public final DefaultEntityInConstruction entity;
+    public final E entity;
 
     public final ConstructionQueue.EntityRepresentationConstruction<D> representation;
 
@@ -47,7 +47,7 @@ public final class WaitingEntity<D> {
      */
     public final EntityId builderId;
 
-    public WaitingEntity(DefaultEntityInConstruction entity, ConstructionQueue.EntityRepresentationConstruction<D> representation, EntityId builderId) {
+    public WaitingEntity(E entity, ConstructionQueue.EntityRepresentationConstruction<D> representation, EntityId builderId) {
         this.entity = entity;
         this.representation = representation;
         this.builderId = builderId;
