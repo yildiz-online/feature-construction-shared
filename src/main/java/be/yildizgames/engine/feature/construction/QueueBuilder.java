@@ -24,6 +24,8 @@
 
 package be.yildizgames.engine.feature.construction;
 
+import be.yildizgames.engine.feature.entity.construction.EntityRepresentation;
+
 import java.util.List;
 
 /**
@@ -42,7 +44,7 @@ public interface QueueBuilder extends Builder {
      *
      * @param queue Queue to set
      */
-    void setQueue(List<ConstructionQueue.EntityRepresentationConstruction> queue);
+    void setQueue(List<EntityRepresentation> queue);
 
     /**
      * Remove an item from the building queue.
@@ -56,5 +58,5 @@ public interface QueueBuilder extends Builder {
      *
      * @param r Element to build.
      */
-    void addInQueue(ConstructionQueue.EntityRepresentationConstruction r);
+    void addInQueue(EntityRepresentation r);
 }

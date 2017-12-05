@@ -26,7 +26,7 @@ package be.yildizgames.engine.feature.construction;
 
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.EntityId;
-import be.yildiz.common.util.Time;
+import be.yildizgames.engine.feature.entity.construction.EntityRepresentation;
 import be.yildizgames.engine.feature.entity.data.EntityType;
 
 import java.util.Collections;
@@ -37,12 +37,12 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public final class ConstructionQueue {
+public final class ConstructionQueue<R extends EntityRepresentation> {
 
     /**
      * Wrapped list of elements,
      */
-    private final List<EntityRepresentationConstruction> entities = Lists.newList();
+    private final List<R> entities = Lists.newList();
 
     /**
      * Id of the builder holding this queue.
@@ -71,9 +71,9 @@ public final class ConstructionQueue {
     /**
      * Add a new entity to build in the queue.
      *
-     * @param e Entity to build be.yildizgames.engine.feature.entity.data.
+     * @param e Entity data.
      */
-    public void add(final EntityRepresentationConstruction e) {
+    public void add(final R e) {
         if(this.entities.size() == this.maxSize) {
             throw new ConstructionQueueFullException();
         }
@@ -90,7 +90,7 @@ public final class ConstructionQueue {
      * @param list New values to set in the list.
      * @throws ConstructionQueueFullException If the list size is bigger than the max size.
      */
-    public void set(List<EntityRepresentationConstruction> list) {
+    public void set(List<R> list) {
         this.entities.clear();
         if (list.size() > this.maxSize) {
             throw new ConstructionQueueFullException();
@@ -101,12 +101,12 @@ public final class ConstructionQueue {
         this.entities.addAll(list);
     }
 
-    public List<EntityRepresentationConstruction> getList() {
+    public List<R> getList() {
         return Collections.unmodifiableList(entities);
     }
 
     public boolean remove(int request) {
-        for (EntityRepresentationConstruction e : this.entities) {
+        for (R e : this.entities) {
             if (e.index == request) {
                 this.entities.remove(e);
                 return true;
@@ -123,7 +123,7 @@ public final class ConstructionQueue {
      */
     public int getNumberOfEntities(final EntityType type) {
         int result = 0;
-        for (EntityRepresentationConstruction c : this.entities) {
+        for (R c : this.entities) {
             if (c.type.equals(type)) {
                 result++;
             }
@@ -139,106 +139,4 @@ public final class ConstructionQueue {
         return builderId;
     }
 
-    /**
-     * An entity representation construction is the state of the build of an entity,
-     * it contains the type, the modules to be built and the unique build index.
-     */
-    public static final class EntityRepresentationConstruction <D> {
-
-        /**
-         * Type of the entity to build.
-         */
-        public final EntityType type;
-
-        /**
-         * Modules used in this entity.
-         */
-        public final D data;
-
-        /**
-         * Construction unique index.
-         */
-        public final int index;
-
-        /**
-         * Time left before the construction is complete.
-         */
-        private Time timeLeft;
-
-        public EntityRepresentationConstruction(EntityType type, D data, int index, Time timeLeft) {
-            this.type = type;
-            this.data = data;
-            this.index = index;
-            this.timeLeft = timeLeft;
-        }
-
-        /**
-         * @return The time before construction completion in milliseconds.
-         */
-        public long getTime() {
-            return this.timeLeft.timeInMs;
-        }
-
-        /**
-         * Update the time left.
-         *
-         * @param timeToRemove Time spent since the last update.
-         */
-        public void reduceTimeLeft(final long timeToRemove) {
-            long t = timeLeft.subtractMs(timeToRemove);
-            if (t < 0) {
-                t = 0;
-            }
-            this.timeLeft = Time.milliSeconds(t);
-        }
-
-        /**
-         * @return True if the time required to build the entity is elapsed.
-         */
-        public boolean isTimeElapsed() {
-            return this.timeLeft.timeInMs <= 0;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            EntityRepresentationConstruction that = (EntityRepresentationConstruction) o;
-
-            if (index != that.index) {
-                return false;
-            }
-            if (!type.equals(that.type)) {
-                return false;
-            }
-            if (!data.equals(that.data)) {
-                return false;
-            }
-            return timeLeft.equals(that.timeLeft);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = type.hashCode();
-            result = 31 * result + data.hashCode();
-            result = 31 * result + index;
-            result = 31 * result + timeLeft.hashCode();
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "EntityRepresentationConstruction{" +
-                    "type=" + type +
-                    ", be.yildizgames.engine.feature.entity.data=" + data +
-                    ", index=" + index +
-                    ", timeLeft=" + timeLeft +
-                    '}';
-        }
-    }
 }

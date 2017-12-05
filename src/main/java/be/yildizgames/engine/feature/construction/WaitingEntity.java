@@ -27,27 +27,28 @@ package be.yildizgames.engine.feature.construction;
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildizgames.engine.feature.entity.EntityInConstruction;
+import be.yildizgames.engine.feature.entity.construction.EntityRepresentation;
 
 /**
  * Class with entity data and building time.
  *
  * @author Grégory Van den Borre
  */
-public final class WaitingEntity<D, E extends EntityInConstruction> {
+public final class WaitingEntity<E extends EntityInConstruction> {
 
     /**
      * The entity to build data.
      */
     public final E entity;
 
-    public final ConstructionQueue.EntityRepresentationConstruction<D> representation;
+    public final EntityRepresentation representation;
 
     /**
      * Unique id of the builder of this entity.
      */
     public final EntityId builderId;
 
-    public WaitingEntity(E entity, ConstructionQueue.EntityRepresentationConstruction<D> representation, EntityId builderId) {
+    public WaitingEntity(E entity, EntityRepresentation representation, EntityId builderId) {
         this.entity = entity;
         this.representation = representation;
         this.builderId = builderId;
@@ -69,13 +70,7 @@ public final class WaitingEntity<D, E extends EntityInConstruction> {
 
         WaitingEntity that = (WaitingEntity) o;
 
-        if (!entity.equals(that.entity)) {
-            return false;
-        }
-        if (!representation.equals(that.representation)) {
-            return false;
-        }
-        return builderId.equals(that.builderId);
+        return entity.equals(that.entity) && representation.equals(that.representation) && builderId.equals(that.builderId);
     }
 
     @Override
