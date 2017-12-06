@@ -31,20 +31,20 @@ import java.util.List;
 /**
  * @author Grégory Van den Borre
  */
-public interface QueueBuilder extends Builder {
+public interface QueueBuilder<R extends EntityRepresentation> extends Builder {
 
     /**
      * @return The queue used by this builder.
      */
     //@Ensures("result != null")
-    ConstructionQueue getQueue();
+    ConstructionQueue<R> getQueue();
 
     /**
      * Set the entity construction queue used by the builder.
      *
      * @param queue Queue to set
      */
-    void setQueue(List<EntityRepresentation> queue);
+    void setQueue(List<R> queue);
 
     /**
      * Remove an item from the building queue.
@@ -58,5 +58,5 @@ public interface QueueBuilder extends Builder {
      *
      * @param r Element to build.
      */
-    void addInQueue(EntityRepresentation r);
+    void addInQueue(R r);
 }

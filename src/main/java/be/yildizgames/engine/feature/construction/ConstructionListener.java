@@ -26,6 +26,7 @@ package be.yildizgames.engine.feature.construction;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
+import be.yildizgames.engine.feature.entity.EntityInConstruction;
 import be.yildizgames.engine.feature.entity.data.EntityType;
 
 /**
@@ -33,7 +34,7 @@ import be.yildizgames.engine.feature.entity.data.EntityType;
  *
  * @author Grégory Van den Borre
  */
-public interface ConstructionListener {
+public interface ConstructionListener<E extends EntityInConstruction> {
 
     default void entityConstructionStarted() {
 
@@ -51,10 +52,10 @@ public interface ConstructionListener {
     default void entityComplete(EntityId id, PlayerId owner, EntityType type, EntityId builder, int request) {
     }
 
-    default void entityConstructionCanceled(WaitingEntity e) {
+    default void entityConstructionCanceled(WaitingEntity<E> e) {
     }
 
-    default void addEntityToCreate(WaitingEntity e) {
+    default void addEntityToCreate(WaitingEntity<E> e) {
 
     }
 }

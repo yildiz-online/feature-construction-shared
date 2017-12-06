@@ -53,7 +53,7 @@ public class ConstructionManager<T extends Entity, E extends EntityInConstructio
     /**
      * List of entities waiting to be build.
      */
-    private final List<WaitingEntity<D, E>> entityToBuildList = Lists.newList();
+    private final List<WaitingEntity<E>> entityToBuildList = Lists.newList();
 
     /**
      * Factory to build the entities.
@@ -109,7 +109,7 @@ public class ConstructionManager<T extends Entity, E extends EntityInConstructio
     @Override
     public boolean frameEnded(final long time) {
         for (int i = 0; i < this.entityToBuildList.size(); i++) {
-            WaitingEntity<D, E> waitingEntity = this.entityToBuildList.get(i);
+            WaitingEntity<E> waitingEntity = this.entityToBuildList.get(i);
             waitingEntity.representation.reduceTimeLeft(time);
             if (waitingEntity.representation.isTimeElapsed()) {
                 T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
