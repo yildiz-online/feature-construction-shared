@@ -28,7 +28,7 @@ import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
 import be.yildiz.common.vector.Point3D;
 import be.yildizgames.engine.feature.entity.EntityToCreate;
-import be.yildizgames.engine.feature.entity.construction.EntityRepresentation;
+import be.yildizgames.engine.feature.entity.construction.EntityConstructionStatus;
 
 import java.util.Optional;
 
@@ -58,7 +58,7 @@ public class ConstructionManagerFiller implements ConstructionQueueListener {
     }
 
     @Override
-    public void add(EntityRepresentation toBuild, PlayerId p, EntityId builderId) {
+    public void add(EntityConstructionStatus toBuild, PlayerId p, EntityId builderId) {
         Optional<Builder> builder = BuilderManager.getInstance().getBuilderById(builderId);
         builder.ifPresent(b -> {
             EntityToCreate etc = new EntityToCreate(

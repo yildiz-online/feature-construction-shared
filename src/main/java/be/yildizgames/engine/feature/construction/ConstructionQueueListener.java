@@ -26,7 +26,7 @@ package be.yildizgames.engine.feature.construction;
 
 import be.yildiz.common.id.EntityId;
 import be.yildiz.common.id.PlayerId;
-import be.yildizgames.engine.feature.entity.construction.EntityRepresentation;
+import be.yildizgames.engine.feature.entity.construction.EntityConstructionStatus;
 
 /**
  * Listen about an entity construction queue state change.
@@ -47,7 +47,7 @@ public interface ConstructionQueueListener {
      * @param playerId Id of the player requesting the build.
      * @param builderId Id of the entity building this entity.
      */
-    default void add(EntityRepresentation toBuild, PlayerId playerId, EntityId builderId) {
+    default void add(EntityConstructionStatus toBuild, PlayerId playerId, EntityId builderId) {
     }
 
 }

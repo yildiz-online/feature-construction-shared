@@ -26,7 +26,7 @@ package be.yildizgames.engine.feature.construction;
 
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.id.EntityId;
-import be.yildizgames.engine.feature.entity.construction.EntityRepresentation;
+import be.yildizgames.engine.feature.entity.construction.EntityConstructionStatus;
 import be.yildizgames.engine.feature.entity.data.EntityType;
 
 import java.util.Collections;
@@ -37,7 +37,7 @@ import java.util.List;
  *
  * @author Grégory Van den Borre
  */
-public final class ConstructionQueue<R extends EntityRepresentation> {
+public final class ConstructionQueue<R extends EntityConstructionStatus> {
 
     /**
      * Wrapped list of elements,

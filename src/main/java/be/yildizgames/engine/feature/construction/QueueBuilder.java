@@ -24,14 +24,14 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildizgames.engine.feature.entity.construction.EntityRepresentation;
+import be.yildizgames.engine.feature.entity.construction.EntityConstructionStatus;
 
 import java.util.List;
 
 /**
  * @author Grégory Van den Borre
  */
-public interface QueueBuilder<R extends EntityRepresentation> extends Builder {
+public interface QueueBuilder<R extends EntityConstructionStatus> extends Builder {
 
     /**
      * @return The queue used by this builder.
