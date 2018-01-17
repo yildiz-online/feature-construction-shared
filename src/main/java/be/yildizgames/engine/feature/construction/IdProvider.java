@@ -24,7 +24,7 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildiz.common.id.EntityId;
+import be.yildizgames.common.model.EntityId;
 
 /**
  * Implementations of this interface will provide id not yet(or no longer) used.

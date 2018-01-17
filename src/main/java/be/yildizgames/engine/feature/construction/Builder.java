@@ -24,9 +24,9 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
-import be.yildiz.common.vector.Point3D;
+import be.yildizgames.common.geometry.Point3D;
+import be.yildizgames.common.model.EntityId;
+import be.yildizgames.common.model.PlayerId;
 
 /**
  * Building having the capacity to build entities.

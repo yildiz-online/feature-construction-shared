@@ -24,12 +24,12 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildiz.common.collections.Lists;
-import be.yildiz.common.collections.Sets;
-import be.yildiz.common.framelistener.EndFrameListener;
-import be.yildiz.common.framelistener.FrameManager;
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
+import be.yildizgames.common.collection.Lists;
+import be.yildizgames.common.collection.Sets;
+import be.yildizgames.common.frame.EndFrameListener;
+import be.yildizgames.common.frame.FrameManager;
+import be.yildizgames.common.model.EntityId;
+import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.engine.feature.entity.Entity;
 import be.yildizgames.engine.feature.entity.EntityCreator;
 import be.yildizgames.engine.feature.entity.EntityInConstruction;

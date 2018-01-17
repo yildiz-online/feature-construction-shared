@@ -24,8 +24,8 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildiz.common.id.EntityId;
-import be.yildiz.common.id.PlayerId;
+import be.yildizgames.common.model.EntityId;
+import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.engine.feature.entity.construction.EntityConstructionStatus;
 
 /**
