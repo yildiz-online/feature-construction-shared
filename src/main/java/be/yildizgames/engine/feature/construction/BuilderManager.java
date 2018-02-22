@@ -40,8 +40,6 @@ import java.util.Optional;
  */
 public class BuilderManager<B extends Builder> {
 
-    private static final BuilderManager INSTANCE = new BuilderManager();
-
     /**
      * List of builder by their id.
      */
@@ -52,12 +50,8 @@ public class BuilderManager<B extends Builder> {
      */
     private final Map<PlayerId, List<B>> buildersByPlayer = new HashMap<>();
 
-    private BuilderManager() {
+    public BuilderManager() {
         super();
-    }
-
-    public static BuilderManager getInstance() {
-        return INSTANCE;
     }
 
     /**

@@ -43,13 +43,16 @@ public class ConstructionManagerFiller implements ConstructionQueueListener {
      */
     private final ConstructionManager manager;
 
+    private final BuilderManager builderManager;
+
     /**
      * Create a new instance filler.
      * @param manager Manager responsible to build entities.
      */
-    public ConstructionManagerFiller(ConstructionManager manager) {
+    public ConstructionManagerFiller(BuilderManager builderManager, ConstructionManager manager) {
         super();
         this.manager = manager;
+        this.builderManager = builderManager;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class ConstructionManagerFiller implements ConstructionQueueListener {
 
     @Override
     public void add(EntityConstructionStatus toBuild, PlayerId p, EntityId builderId) {
-        Optional<Builder> builder = BuilderManager.getInstance().getBuilderById(builderId);
+        Optional<Builder> builder = builderManager.getBuilderById(builderId);
         builder.ifPresent(b -> {
             EntityToCreate etc = new EntityToCreate(
                     toBuild.type,
