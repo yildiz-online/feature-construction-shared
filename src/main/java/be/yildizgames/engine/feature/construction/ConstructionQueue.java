@@ -24,11 +24,11 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildizgames.common.collection.Lists;
 import be.yildizgames.common.model.EntityId;
 import be.yildizgames.engine.feature.entity.construction.EntityConstructionStatus;
 import be.yildizgames.engine.feature.entity.data.EntityType;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,7 +42,7 @@ public final class ConstructionQueue<R extends EntityConstructionStatus> {
     /**
      * Wrapped list of elements,
      */
-    private final List<R> entities = Lists.newList();
+    private final List<R> entities = new ArrayList<>();
 
     /**
      * Id of the builder holding this queue.

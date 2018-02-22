@@ -24,12 +24,12 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildizgames.common.collection.Lists;
-import be.yildizgames.common.collection.Maps;
 import be.yildizgames.common.model.EntityId;
 import be.yildizgames.common.model.PlayerId;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,12 +45,12 @@ public class BuilderManager<B extends Builder> {
     /**
      * List of builder by their id.
      */
-    private final Map<EntityId, B> builderList = Maps.newMap();
+    private final Map<EntityId, B> builderList = new HashMap<>();
 
     /**
      * List of all builders for a given player.
      */
-    private final Map<PlayerId, List<B>> buildersByPlayer = Maps.newMap();
+    private final Map<PlayerId, List<B>> buildersByPlayer = new HashMap<>();
 
     private BuilderManager() {
         super();
@@ -77,7 +77,7 @@ public class BuilderManager<B extends Builder> {
     public void addBuilder(final B builder) {
         this.builderList.put(builder.getBuilderId(), builder);
         if (!this.buildersByPlayer.containsKey(builder.getOwner())) {
-            this.buildersByPlayer.put(builder.getOwner(), Lists.newList());
+            this.buildersByPlayer.put(builder.getOwner(), new ArrayList<>());
         }
         this.buildersByPlayer.get(builder.getOwner()).add(builder);
     }

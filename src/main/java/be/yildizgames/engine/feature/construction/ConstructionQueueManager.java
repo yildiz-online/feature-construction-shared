@@ -24,13 +24,13 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildizgames.common.collection.Lists;
 import be.yildizgames.common.model.EntityId;
 import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.engine.feature.entity.EntityInConstruction;
 import be.yildizgames.engine.feature.entity.construction.EntityConstructionStatus;
 import be.yildizgames.engine.feature.entity.data.EntityType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +45,7 @@ public class ConstructionQueueManager<R extends EntityConstructionStatus, E exte
      * Listeners to notify when a queue state changes.
      */
     //@Invariant("!listeners.contains(null)")
-    private final List<ConstructionQueueListener> listeners = Lists.newList();
+    private final List<ConstructionQueueListener> listeners = new ArrayList<>();
 
     /**
      * Manage the builders.

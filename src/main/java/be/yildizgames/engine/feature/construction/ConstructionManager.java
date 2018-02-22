@@ -24,10 +24,9 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildizgames.common.collection.Lists;
-import be.yildizgames.common.collection.Sets;
 import be.yildizgames.common.frame.EndFrameListener;
 import be.yildizgames.common.frame.FrameManager;
+import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.common.model.EntityId;
 import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.engine.feature.entity.Entity;
@@ -35,11 +34,12 @@ import be.yildizgames.engine.feature.entity.EntityCreator;
 import be.yildizgames.engine.feature.entity.EntityInConstruction;
 import be.yildizgames.engine.feature.entity.EntityToCreate;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -48,12 +48,12 @@ import java.util.stream.Collectors;
  */
 public class ConstructionManager<T extends Entity, E extends EntityInConstruction, D> extends EndFrameListener implements CompleteConstructionManager<E> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConstructionManager.class);
+    private static final Logger LOGGER = LogFactory.getInstance().getLogger(ConstructionManager.class);
 
     /**
      * List of entities waiting to be build.
      */
-    private final List<WaitingEntity<E>> entityToBuildList = Lists.newList();
+    private final List<WaitingEntity<E>> entityToBuildList = new ArrayList<>();
 
     /**
      * Factory to build the entities.
@@ -63,11 +63,11 @@ public class ConstructionManager<T extends Entity, E extends EntityInConstructio
     /**
      * Listener to notify when a construction is completed.
      */
-    private final Set<ConstructionListener> listenerList = Sets.newInsertionOrderedSet();
+    private final Set<ConstructionListener> listenerList = new TreeSet<>();
 
     private final EntityCreator creator;
 
-    private List<EntityToCreate> entityToCreateList = Lists.newList();
+    private List<EntityToCreate> entityToCreateList = new ArrayList<>();
 
     /**
      * Create a new BuilderManager.
