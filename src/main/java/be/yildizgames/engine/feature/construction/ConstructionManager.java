@@ -85,7 +85,7 @@ public class ConstructionManager<T extends Entity, E extends EntityInConstructio
     @Override
     public void createEntity(final E entity, final EntityId builderId, final int index) {
         T buildEntity = this.associatedFactory.createEntity(entity);
-        LOGGER.debug("Entity built " + entity.getId());
+        LOGGER.debug("Entity built " + entity.getId() + ":" + entity.getType().name);
         this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), buildEntity.getOwner(), buildEntity.getType(), builderId, index));
     }
 
