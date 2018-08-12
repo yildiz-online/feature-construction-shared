@@ -38,8 +38,6 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -63,7 +61,7 @@ public class ConstructionManager<T extends Entity, E extends EntityInConstructio
     /**
      * Listener to notify when a construction is completed.
      */
-    private final Set<ConstructionListener> listenerList = new TreeSet<>();
+    private final List<ConstructionListener> listenerList = new ArrayList<>();
 
     private final EntityCreator creator;
 
