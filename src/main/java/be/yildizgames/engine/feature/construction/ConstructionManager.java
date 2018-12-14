@@ -26,7 +26,6 @@ package be.yildizgames.engine.feature.construction;
 
 import be.yildizgames.common.frame.EndFrameListener;
 import be.yildizgames.common.frame.FrameManager;
-import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.common.model.EntityId;
 import be.yildizgames.common.model.PlayerId;
 import be.yildizgames.engine.feature.entity.Entity;
@@ -34,6 +33,7 @@ import be.yildizgames.engine.feature.entity.EntityCreator;
 import be.yildizgames.engine.feature.entity.EntityInConstruction;
 import be.yildizgames.engine.feature.entity.EntityToCreate;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
  */
 public class ConstructionManager<T extends Entity, E extends EntityInConstruction, D> extends EndFrameListener implements CompleteConstructionManager<E> {
 
-    private static final Logger LOGGER = LogFactory.getInstance().getLogger(ConstructionManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConstructionManager.class);
 
     /**
      * List of entities waiting to be build.
