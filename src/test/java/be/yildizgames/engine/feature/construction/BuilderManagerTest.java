@@ -38,13 +38,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Grégory Van den Borre
  */
-class BuilderManagerTest {
+public class BuilderManagerTest {
 
     @Nested
-    class GetBuilderByPlayer {
+    public class GetBuilderByPlayer {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             BuilderManager<Builder> manager = new BuilderManager<>();
             Builder b = Mockito.mock(Builder.class);
             Mockito.when(b.getOwner()).thenReturn(PlayerId.valueOf(2));
@@ -54,14 +54,14 @@ class BuilderManagerTest {
         }
 
         @Test
-        void withEmptyResult() {
+        public void withEmptyResult() {
             BuilderManager<Builder> manager = new BuilderManager<>();
             List<Builder> builders = manager.getBuilderByPlayer(PlayerId.valueOf(5));
             assertTrue(builders.isEmpty());
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             BuilderManager<Builder> manager = new BuilderManager<>();
             assertThrows(AssertionError.class, () -> manager.getBuilderByPlayer(null));
         }
