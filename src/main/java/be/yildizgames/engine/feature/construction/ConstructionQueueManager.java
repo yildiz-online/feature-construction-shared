@@ -147,7 +147,7 @@ public class ConstructionQueueManager<R extends EntityConstructionStatus, E exte
     }
 
     @Override
-    public void entityConstructionCanceled(WaitingEntity<E> w) {
+    public final void entityConstructionCanceled(WaitingEntity<E> w) {
         this.builderManager.getBuilderById(w.builderId).ifPresent(b -> {
             b.removeFromQueue(w.representation.index);
             if (!b.getQueue().isEmpty()) {

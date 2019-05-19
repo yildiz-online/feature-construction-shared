@@ -30,6 +30,7 @@ import be.yildizgames.engine.feature.entity.EntityInConstruction;
 /**
  * An entity construction manager will build entities, once the process is done, the listeners are notified.
  * @param <E> EntityInConstruction real type.
+ *
  * @author Grégory Van den Borre
  */
 public interface SimpleConstructionManager<E extends EntityInConstruction> {

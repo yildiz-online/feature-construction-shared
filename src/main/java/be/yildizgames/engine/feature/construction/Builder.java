@@ -68,5 +68,4 @@ public interface Builder {
      */
     //@Ensures result != null
    // EntityId getCity();
-
 }

@@ -33,6 +33,7 @@ import java.util.List;
  */
 public interface QueueBuilder<R extends EntityConstructionStatus> extends Builder {
 
+
     /**
      * @return The queue used by this builder.
      */

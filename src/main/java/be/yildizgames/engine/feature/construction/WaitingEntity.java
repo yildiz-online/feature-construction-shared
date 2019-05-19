@@ -36,6 +36,7 @@ import be.yildizgames.engine.feature.entity.construction.EntityConstructionStatu
  */
 public final class WaitingEntity<E extends EntityInConstruction> {
 
+
     /**
      * The entity to build data.
      */

@@ -32,4 +32,5 @@ import be.yildizgames.engine.feature.entity.Level;
 public interface Buildable {
 
     Level getRequiredLevel();
+
 }

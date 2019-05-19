@@ -45,3 +45,4 @@ public interface EntityFactory<T extends Entity, E extends EntityInConstruction>
     //@Ensures result != null.
     T createEntity(E e);
 }
+

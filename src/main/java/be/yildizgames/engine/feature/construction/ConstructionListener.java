@@ -56,6 +56,6 @@ public interface ConstructionListener<E extends EntityInConstruction> {
     }
 
     default void addEntityToCreate(WaitingEntity<E> e) {
-
+        // Does nothing.
     }
 }

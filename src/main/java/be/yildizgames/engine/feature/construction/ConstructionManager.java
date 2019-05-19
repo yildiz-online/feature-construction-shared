@@ -42,6 +42,7 @@ import java.util.stream.Collectors;
 
 /**
  * Check all builder List and execute their build method. Primary task is Call all builder to create their units, if they don't have anything to create, they are removed from the builder list.
+ *
  * @author Grégory Van den Borre
  */
 public class ConstructionManager<T extends Entity, E extends EntityInConstruction, D> extends EndFrameListener implements CompleteConstructionManager<E> {

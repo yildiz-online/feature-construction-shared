@@ -135,7 +135,7 @@ public final class ConstructionQueue<R extends EntityConstructionStatus> {
         return this.entities.size() == 1;
     }
 
-    public EntityId getBuilderId() {
+    public final EntityId getBuilderId() {
         return builderId;
     }
 

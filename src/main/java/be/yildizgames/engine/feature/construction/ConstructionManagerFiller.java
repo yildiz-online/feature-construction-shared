@@ -34,6 +34,7 @@ import java.util.Optional;
 
 /**
  * This class fill the construction manager with requests coming from the queue manager.
+ *
  * @author Grégory Van den Borre
  */
 public class ConstructionManagerFiller implements ConstructionQueueListener {

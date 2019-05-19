@@ -31,7 +31,6 @@ import be.yildizgames.engine.feature.entity.EntityToCreate;
 import java.util.List;
 
 /**
- *
  * @author Grégory Van den Borre
  */
 public interface CompleteConstructionManager <E extends EntityInConstruction> extends SimpleConstructionManager<E> {

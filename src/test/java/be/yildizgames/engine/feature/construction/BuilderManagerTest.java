@@ -63,7 +63,6 @@ public class BuilderManagerTest {
             BuilderManager<Builder> manager = new BuilderManager<>();
             assertThrows(AssertionError.class, () -> manager.getBuilderByPlayer(null));
         }
-
     }
 
 }

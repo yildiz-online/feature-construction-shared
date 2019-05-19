@@ -28,6 +28,7 @@ import be.yildizgames.common.model.EntityId;
 
 /**
  * Implementations of this interface will provide id not yet(or no longer) used.
+ *
  * @author Grégory Van den Borre
  */
 @FunctionalInterface

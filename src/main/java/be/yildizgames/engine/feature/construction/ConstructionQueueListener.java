@@ -48,6 +48,7 @@ public interface ConstructionQueueListener {
      * @param builderId Id of the entity building this entity.
      */
     default void add(EntityConstructionStatus toBuild, PlayerId playerId, EntityId builderId) {
+        // Does nothing.
     }
 
 }

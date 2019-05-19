@@ -36,6 +36,7 @@ import java.util.Optional;
 
 /**
  * Keep track of all existing builders.
+ *
  * @author Grégory Van den Borre
  */
 public class BuilderManager<B extends Builder> {
