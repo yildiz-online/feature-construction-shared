@@ -26,7 +26,6 @@ module be.yildizgames.feature.construction.shared {
     requires be.yildizgames.common.model;
     requires be.yildizgames.feature.entity.shared;
     requires be.yildizgames.common.geometry;
-    requires slf4j.api;
     requires be.yildizgames.common.logging;
     requires be.yildizgames.common.frame;
 

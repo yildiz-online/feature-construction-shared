@@ -32,8 +32,6 @@ import be.yildizgames.engine.feature.entity.Entity;
 import be.yildizgames.engine.feature.entity.EntityCreator;
 import be.yildizgames.engine.feature.entity.EntityInConstruction;
 import be.yildizgames.engine.feature.entity.EntityToCreate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +45,7 @@ import java.util.stream.Collectors;
  */
 public class ConstructionManager<T extends Entity, E extends EntityInConstruction, D> extends EndFrameListener implements CompleteConstructionManager<E> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConstructionManager.class);
+    private static final System.Logger LOGGER = System.getLogger(ConstructionManager.class.getName());
 
     /**
      * List of entities waiting to be build.
@@ -84,7 +82,7 @@ public class ConstructionManager<T extends Entity, E extends EntityInConstructio
     @Override
     public void createEntity(final E entity, final EntityId builderId, final int index) {
         T buildEntity = this.associatedFactory.createEntity(entity);
-        LOGGER.debug("Entity built " + entity.getId() + ":" + entity.getType().name);
+        LOGGER.log(System.Logger.Level.DEBUG, "Entity built " + entity.getId() + ":" + entity.getType().name);
         this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), buildEntity.getOwner(), buildEntity.getType(), builderId, index));
     }
 
@@ -112,7 +110,7 @@ public class ConstructionManager<T extends Entity, E extends EntityInConstructio
             waitingEntity.representation.reduceTimeLeft(time);
             if (waitingEntity.representation.isTimeElapsed()) {
                 T buildEntity = this.associatedFactory.createEntity(waitingEntity.entity);
-                LOGGER.debug("Entity built " + waitingEntity.entity.getId());
+                LOGGER.log(System.Logger.Level.DEBUG, "Entity built " + waitingEntity.entity.getId());
                 this.listenerList.forEach(l -> l.entityComplete(buildEntity.getId(), buildEntity.getOwner(), buildEntity.getType(), waitingEntity.builderId, waitingEntity.representation.index));
                 this.entityToBuildList.remove(i);
                 i--;
