@@ -24,7 +24,7 @@
 
 package be.yildizgames.engine.feature.construction;
 
-import be.yildizgames.engine.feature.entity.Level;
+import be.yildizgames.common.model.Level;
 
 /**
  * @author Grégory Van den Borre
